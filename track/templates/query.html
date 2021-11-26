@@ -1,0 +1,147 @@
+﻿<html>
+<head>
+    <title>database</title>
+    <style type="text/css">
+        body {
+            background: yellow;
+        }
+
+        h1 {
+            text-align: center;
+            position: absolute;
+            top: 20%;
+            left: 47%;
+            transform: translateX()translateY()
+        }
+        table, th, td {
+            border: 1px solid black;
+            text-align:center;
+            font-size:23px;
+            margin-left: auto;
+            margin-right: auto;
+         }
+        .container {
+                font-size:23px;
+                background: green;
+                text-align:center;
+                position:absolute;
+                top: 30%;
+                left:36%;
+                transform: translateX()translateY()
+                
+                
+        }
+        
+    </style>
+</head>
+
+<body>
+
+
+    <h1>Queries</h1>
+
+    <form method="POST">
+        <div class="container">
+            {% csrf_token %}
+            
+            <input type="radio" id="q1" name="query" value="q1" onclick="func1()" />
+            <label for="q1">Find customer details</label>
+            <br />
+            <input style="font-size:25px;" type="text" id="cust_id" name="cust_id" />
+            <br /><br />
+            <input type="radio" id="q2" name="query" value="q2" onclick="func2()" />
+            <label for="q2">Find pilot details</label>
+            <br />
+            <input style="font-size:25px;" type="text" id="pilot_id" name="pilot_id" />
+            <br /><br />
+            <input type="radio" id="q3" name="query" value="q3" onclick="func3()" />
+            <label for="q3">Check if your flight has been scheduled or not</label>
+            <br />
+            <input style="font-size:25px;" type="text" id="plane_id" name="plane_id" />
+            <script>
+                function func1() {
+                    document.getElementById("cust_id").disabled = false;
+                    document.getElementById("pilot_id").disabled = true;
+                    document.getElementById("plane_id").disabled = true;
+                }
+                function func2() {
+                    document.getElementById("cust_id").disabled = true;
+                    document.getElementById("pilot_id").disabled = false;
+                    document.getElementById("plane_id").disabled = true;
+                }
+                function func3() {
+                    document.getElementById("cust_id").disabled = true;
+                    document.getElementById("pilot_id").disabled = true;
+                    document.getElementById("plane_id").disabled = false;
+                }
+            </script>
+            <br /><br />
+            <input style="font-size:25px;" type="submit" value="Submit">
+            <br><br>
+            {% if message == None %}
+            {% elif message == "q1" %}
+                <table>
+                 <tr>
+                    <th>Customer ID</th>
+                    <th>Ticket ID</th>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Plane ID</th>
+                 </tr>
+                 {% for cust_id, ticket_id, name, date, plane_id in rows %}
+                        <tr>
+                        
+                            <td>{{ cust_id }}</td>
+                            <td>{{ ticket_id }}</td>
+                            <td>{{ name }}</td>
+                            <td>{{ date }}</td>
+                            <td>{{ plane_id }}</td>
+                        </tr>
+                 {% endfor %}
+                </table>
+            {% elif message == "q2" %}
+                <table class="center">
+                 <tr>
+                    <th>Pilot ID</th>                   
+                    <th>Name</th>                   
+                    <th>Plane ID</th>
+                 </tr>
+                 {% for pilot_id, name, plane_id in rows %}
+                        <tr>
+                            <td>{{ pilot_id }}</td>
+                            <td>{{ name }}</td>                            
+                            <td>{{ plane_id }}</td>
+                        </tr>
+                 {% endfor %}
+                </table>
+            {% elif message == "q3" %}
+                <table>
+                 <tr>                                        
+                    <th>Plane_ID</th>
+                    <th>Airline</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Schedule Status(0=No, 1=Yes)</th>
+                 </tr>
+                 {% for plane_id, airline, date, time, schedule_status in rows %}
+                        <tr>
+                            <td>{{ plane_id }}</td>
+                            <td>{{ airline }}</td>
+                            <td>{{ date }}</td>
+                            <td>{{ time }}</td>
+                            <td>{{ schedule_status }}</td>
+                        </tr>
+                 {% endfor %}
+                </table>
+            {% endif %}
+            
+            <a href="{% url 'home' %}">Back to homepage</a>
+        </div>
+    </form>
+
+
+   
+
+
+</body>
+</html>

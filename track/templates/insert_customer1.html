@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>insert</title>
+    <style type="text/css">
+        body {
+            background: yellow;
+        }
+
+        h1 {
+            text-align: center;
+            position: absolute;
+            top: 10%;
+            left: 47%;
+            transform: translateX()translateY()
+        }
+
+        .container {
+            font-size: 23px;
+            background: green;
+            text-align: center;
+            position: absolute;
+            top: 20%;
+            left: 40%;
+            transform: translateX()translateY()
+        }
+    </style>
+</head>
+<body>
+    <h1>Insert</h1>
+    <form method="POST">
+        <div class="container">
+            {% csrf_token %}
+            Customer Id:
+            <br />
+            <input style="font-size:25px;" type="text" name="cust_id">
+            <br><br>
+            Ticket Id:
+            <br />
+            <input style="font-size:25px;" type="text" name="ticket_id">
+            <br><br>
+            Name:
+            <br />
+            <input style="font-size:25px;" type="text" name="name">
+            <br><br>
+            Date:
+            <br />
+            <input style="font-size:25px;" type="text" name="date">
+            <br><br>
+            Plane Id:
+            <br />
+            <input style="font-size:25px;" type="text" name="plane_id">
+            <br><br>
+            <input style="font-size:25px;" type="submit" value="Submit">
+            <br><br>
+            <a href="{% url 'home' %}">Back to homepage</a><br />
+            <a href="{% url 'insert' %}">Back to insert</a>
+        </div>
+    </form>
+</body>
+</html>
