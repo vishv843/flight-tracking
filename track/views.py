@@ -40,7 +40,7 @@ def query(request):
         if 'q3'== str(request.POST.get('query')):
             plane_id = request.POST.get('plane_id')
             list1 = [str(plane_id)]
-            connection = psycopg2.connect(host="localhost", database="201901453_db", user="postgres", password="admin")
+            connection = psycopg2.connect(host="localhost", database="", user="postgres", password="")
             cursor = connection.cursor()
             cursor.execute('SELECT version()')
             q1 = "select plane_id, airline, date, time, schedule_status from flight_tracking.flight_scheduling where plane_id = %s"
@@ -56,7 +56,7 @@ def query(request):
     
 def insert_flight1(request):
     if request.method == 'POST':
-        connection = psycopg2.connect(host="localhost", database="201901453_db", user="postgres", password="admin")
+        connection = psycopg2.connect(host="localhost", database="", user="postgres", password="")
         cursor = connection.cursor()
         cursor.execute('SELECT version()')
         list1 = [str(request.POST.get('id')), str(request.POST.get('airline'))]
@@ -72,7 +72,7 @@ def insert_flight1(request):
         return render(request, 'insert_flight1.html')
 def insert_customer1(request):
     if request.method == 'POST':
-        connection = psycopg2.connect(host="localhost", database="201901453_db", user="postgres", password="admin")
+        connection = psycopg2.connect(host="localhost", database="", user="postgres", password="")
         cursor = connection.cursor()
         cursor.execute('SELECT version()')
         cust_id = request.POST.get('cust_id')
